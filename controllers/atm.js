@@ -64,6 +64,15 @@ exports.processing = (req,res) =>{
     let amount = req.body.amount;
     var denomination = req.body.denomination;
 
+    if(denomination=="None"){
+        for(var i =0;i<amounts.length;i++){
+            if(amounts[i]<=amount){
+                denomination = amounts[i]
+                break;
+            }
+        }
+    }
+
     if(denomination == 10 || denomination == 20 || denomination == 50 || denomination == 100 || denomination == 200 || denomination == 500 || denomination == 1000 && denomination <= amount){
         if(amount%10 == 0 && amount >=10){
        
