@@ -1,6 +1,6 @@
 
 var money = {"10":1000,"20":1000,"50":1000,"100":1000,"200":1000,"500":1000,"1000":1000} // available cash
-
+var user=  {"name":"gagan", "cardnumber":"999999999999", "cvv":0123, "pin":1234}
 var notes = {} // store the cash : {"amount": "number_of_notes"}
 
 var amounts = [1000,500,200,100,50,20,10] // types of cash available
@@ -63,32 +63,43 @@ exports.processing = (req,res) =>{
 
     let amount = req.body.amount;
     var denomination = req.body.denomination;
+    var userName = req.body.userName;
+    var cardNumber = req.body.cardNumber;
+    var cvv = req.body.cvv;
+    var pin = req.body.pin;
 
-    if(denomination=="None"){
-        for(var i =0;i<amounts.length;i++){
-            if(amounts[i]<=amount){
-                denomination = amounts[i]
-                break;
+    if(userName === user.name && cardNumber == user.CardNumber && cvv === user.cvv && pin == user.pin){
+        if(denomination=="None"){
+            for(var i =0;i<amounts.length;i++){
+                if(amounts[i]<=amount){
+                    denomination = amounts[i]
+                    break;
+                }
             }
         }
-    }
-    denomination = parseInt(denomination)
-    if(denomination == 10 || denomination == 20 || denomination == 50 || denomination == 100 || denomination == 200 || denomination == 500 || denomination == 1000 && denomination <= amount){
-        if(amount%10 == 0 && amount >=10){
-       
-       
-            cashier(amount,amounts,denomination,res);
-    
-    
+        denomination = parseInt(denomination)
+        if(denomination == 10 || denomination == 20 || denomination == 50 || denomination == 100 || denomination == 200 || denomination == 500 || denomination == 1000 && denomination <= amount){
+            if(amount%10 == 0 && amount >=10){
+           
+           
+                cashier(amount,amounts,denomination,res);
+        
+        
+            }
+            else{
+                res.send({"success":false,"status":400,"message":"Please enter the right amount","data":{}});
+            }
+        
         }
         else{
-            res.send({"success":false,"status":400,"message":"Please enter the right amount","data":{}});
+            res.send({"success":false,"status":400,"message":'please select right denomination',"data":{}})
         }
-    
     }
     else{
-        res.send({"success":false,"status":400,"message":'please select right denomination',"data":{}})
+        res.send({"success":false,"status":400,"message":'wrong card details',"data":{}})
     }
+
+    
     
 
 }
