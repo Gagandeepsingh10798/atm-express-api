@@ -72,7 +72,7 @@ exports.processing = (req,res) =>{
             }
         }
     }
-
+    denomination = parseInt(denomination)
     if(denomination == 10 || denomination == 20 || denomination == 50 || denomination == 100 || denomination == 200 || denomination == 500 || denomination == 1000 && denomination <= amount){
         if(amount%10 == 0 && amount >=10){
        
