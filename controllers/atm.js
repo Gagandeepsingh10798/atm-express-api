@@ -1,6 +1,6 @@
 
 var money = {"10":1000,"20":1000,"50":1000,"100":1000,"200":1000,"500":1000,"1000":1000} // available cash
-var user=  {"name":"gagan", "cardnumber":"999999999999", "cvv":0123, "pin":1234}
+var user=  {"name":"gagan", "cardnumber":999999999999, "cvv":123, "pin":1234}
 var notes = {} // store the cash : {"amount": "number_of_notes"}
 
 var amounts = [1000,500,200,100,50,20,10] // types of cash available
@@ -60,7 +60,6 @@ var cashier = (amount,amounts,preference,res) =>{
 
 
 exports.processing = (req,res) =>{
-
     let amount = req.body.amount;
     var denomination = req.body.denomination;
     var userName = req.body.userName;
@@ -68,7 +67,7 @@ exports.processing = (req,res) =>{
     var cvv = req.body.cvv;
     var pin = req.body.pin;
 
-    if(userName === user.name && cardNumber == user.CardNumber && cvv === user.cvv && pin == user.pin){
+    if(userName == user.name && cardNumber == user.CardNumber && cvv === user.cvv && pin == user.pin){
         if(denomination=="None"){
             for(var i =0;i<amounts.length;i++){
                 if(amounts[i]<=amount){
